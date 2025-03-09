@@ -1,0 +1,32 @@
+{
+  "state": "64",
+  "modes": {
+    "61": "tempMode",
+    "62": "SoilMoisture",
+    "63": "shabbatMode",
+    "64": "manual"
+  },
+  "lastModeSync": "2025-03-09T14:09:28.616Z",
+  "lastSensorReportSync": "2025-03-09T02:25:41.365Z",
+  "tempMode": {
+    "temp": "6",
+    "minTime": "1",
+    "maxTime": "2"
+  },
+  "SoilMoisture": {
+    "percent": "3"
+  },
+  "shabbatMode": [
+    {
+      "startDateTime": "2025-03-08T03:33",
+      "endDateTime": "2025-03-08T03:34"
+    },
+    {
+      "startDateTime": "2025-03-09T14:13",
+      "endDateTime": "2025-03-09T14:22"
+    }
+  ],
+  "manual": {
+    "pumpEnabled": false
+  }
+}

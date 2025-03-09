@@ -26,6 +26,9 @@ void turn_pump_on_off(bool should_run){
       logMessage("Pump ON");
       digitalWrite(pump, LOW);
       isPumpActive = true;
+      activationTime = millis();
+
+
     }
     else if (!should_run && isPumpActive){
     logMessage("Pump OFF");

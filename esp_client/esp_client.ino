@@ -24,6 +24,8 @@ float CurrentTemp;
 int CurrentLight;
 int CurrentMoisture;
 bool isPumpActive = false;
+bool isOnPump;
+
 
 // global system timings
 const int minutes = 1000 * 60;
@@ -42,6 +44,8 @@ unsigned long reportingTime=0;
 unsigned long DataPullTime=0;
 unsigned long statusCheckTime=0;
 long actionTime = 0;
+long activationTime=0;
+
 // the initial time form the server (timeStamp)
 unsigned long ServerTime = 0;
 
@@ -59,6 +63,7 @@ void setup() {
   String initialConfig = getJsonData(CurrentState);
   deserializeJson(CurrentConfig, initialConfig.c_str());
   isPumpActive = false;
+  isOnPump=true;
   DataPullTime = millis();
   statusCheckTime = millis();
 }
@@ -83,6 +88,7 @@ void loop() {
         String initialConfig = getJsonData(CurrentState);
         deserializeJson(CurrentConfig, initialConfig.c_str());
         DataPullTime = millis();
+        isOnPump=true;
     }
   statusCheckTime = millis();
   }

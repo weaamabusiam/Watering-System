@@ -1,52 +1,61 @@
 import React, { useState, useEffect } from 'react';
     import axios from 'axios';
     import './settings.css';
-
-    const state_codes = {
-      "61": "tempMode",
-      "62": "SoilMoisture",
-      "63": "shabbatMode",
-      "64": "manual"
-    };
-
-    const state_codes_rev = {
-      "tempMode": "61",
-      "SoilMoisture": "62",
-      "shabbatMode": "63",
-      "manual": "64"
-    };
-
     const API_BASE_URL = "http://localhost:3001/api";
 
     const SettingsPage = () => {
-      const [activeMode, setActiveMode] = useState('tempMode'); // Mode being edited
-      const [currentMode, setCurrentMode] = useState(); // Currently active mode
+         const [stateCodes, setStateCodes] = useState({});
+          const [stateCodesRev, setStateCodesRev] = useState({});
 
-      const [configs, setConfigs] = useState({
-        state: "61",
-        tempMode: { temp: 0, minTime: 0, maxTime: 0 },
-        SoilMoisture: { percent: 0 },
-        shabbatMode: [{ startDateTime: '', endDateTime: '' }],
-        manual: { pumpEnabled: false }
-      });
+          const [activeMode, setActiveMode] = useState('tempMode');
+          const [currentMode, setCurrentMode] = useState();
 
-      useEffect(() => {
-        const fetchConfigs = async () => {
-          try {
-            const response = await axios.get(`${API_BASE_URL}/config/all`);
-            if (!Array.isArray(response.data.shabbatMode)) {
+          const [configs, setConfigs] = useState({
+            state: "61",
+            tempMode: { temp: 0, minTime: 0, maxTime: 0 },
+            SoilMoisture: { percent: 0 },
+            shabbatMode: [{ startDateTime: '', endDateTime: '' }],
+            manual: { pumpEnabled: false }
+          });
+
+          const [notification, setNotification] = useState({ message: "", type: "" });
+
+          useEffect(() => {
+            const fetchStateCodes = async () => {
+              try {
+                const { data } = await axios.get(`${API_BASE_URL}/config/stateCodes`);
+                setStateCodes(data);
+                const reversed = Object.entries(data).reduce((acc, [key, value]) => {
+                  acc[value] = key;
+                  return acc;
+                }, {});
+                setStateCodesRev(reversed);
+              } catch (error) {
+                console.error('Error fetching state codes:', error);
+              }
+            };
+
+            const fetchConfigs = async () => {
+              try {
+                const response = await axios.get(`${API_BASE_URL}/config/all`);
+                if (!Array.isArray(response.data.shabbatMode)) {
                   response.data.shabbatMode = [];
                 }
-            setConfigs(response.data);
-            setCurrentMode(state_codes[response.data.state]); // Set active mode from backend
-          } catch (error) {
-            console.error('Error fetching configs:', error);
-          }
-        };
+                setConfigs(response.data);
+              } catch (error) {
+                console.error('Error fetching configs:', error);
+              }
+            };
 
-        fetchConfigs();
-      }, []);
+            fetchStateCodes();
+            fetchConfigs();
+          }, []);
 
+          useEffect(() => {
+            if (configs.state && Object.keys(stateCodes).length > 0) {
+              setCurrentMode(stateCodes[configs.state]);
+            }
+          }, [configs, stateCodes]);
       const handleChange = (mode, fieldOrIndex, value, subField = null) => {
         setConfigs(prev => {
           if (mode === 'shabbatMode') {
@@ -69,8 +78,6 @@ import React, { useState, useEffect } from 'react';
       };
 
 
-  const [notification, setNotification] = useState({ message: "", type: "" });
-
   const showNotification = (message, type) => {
     setNotification({ message, type });
     setTimeout(() => setNotification({ message: "", type: "" }), 2000); // Auto-hide after 2 seconds
@@ -89,7 +96,7 @@ import React, { useState, useEffect } from 'react';
 
   const handleSetActive = async (mode) => {
     try {
-      let dataToSend = state_codes_rev[mode];
+      let dataToSend = stateCodesRev[mode];
       await axios.post(`${API_BASE_URL}/config/state`, { state: dataToSend });
       setCurrentMode(mode);
       showNotification(`✅ מצב "${mode}" נקבע כפעיל`, "success");

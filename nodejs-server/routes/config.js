@@ -85,4 +85,9 @@ router.get('/all', (req,res) =>{
   res.json(data);
 })
 
+router.get('/stateCodes', (req,res) =>{
+  let data = JSON.parse(fs.readFileSync(filePath, "utf8"));
+  res.json(data['modes']);
+})
+
 module.exports = router;

@@ -26,6 +26,7 @@ void sendData(String name_sensor, int avg, int is_running) {
                    "&is_running=" + String(is_running) +
                    "&id_plants=" + String(test_plant_id);
   http.begin(client, String(my_endpoint) + "report_sensor_data?" + dataUrl);
+  http.GET();
   http.end();
 }
 

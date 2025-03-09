@@ -1,0 +1,110 @@
+.threes-panel {
+    padding: 20px;
+    direction: rtl;
+    text-align: right;
+    font-family: Arial, sans-serif;
+}
+
+.threes-panel h2 {
+    margin-bottom: 20px;
+}
+
+.add-tree {
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.add-tree input[type="text"] {
+    padding: 8px;
+    font-size: 14px;
+    border: 2px solid #007BFF;
+    border-radius: 5px;
+    width: 200px;
+}
+
+.add-tree button {
+    background-color: #28a745; /* green */
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    font-size: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.add-tree button:hover {
+    background-color: #218838;
+}
+
+table {
+    width: 90%;
+    border-collapse: collapse;
+}
+
+table th, table td {
+    border: 2px solid #ccc;
+    padding: 8px;
+    background-color: lightgray;
+    text-align: center;
+}
+
+table th {
+    background-color: darkmagenta;
+    color: white;
+}
+
+table td button {
+    padding: 4px 8px;
+    margin: 0 5px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+table td button:first-of-type {
+    background-color: #ffc107; /* update */
+    color: black;
+}
+
+table td button:first-of-type:hover {
+    background-color: #e0a800;
+}
+
+table td button:last-of-type {
+    background-color: #dc3545; /* delete */
+    color: white;
+}
+
+table td button:last-of-type:hover {
+    background-color: #c82333;
+}
+.notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: #f8f8f8;
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.notification.success {
+    background-color: #d4edda;
+    color: #155724;
+    border-left: 5px solid #28a745;
+}
+
+.notification.error {
+    background-color: #f8d7da;
+    color: #721c24;
+    border-left: 5px solid #dc3545;
+}

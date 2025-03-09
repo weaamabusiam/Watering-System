@@ -1,0 +1,350 @@
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: lightgray;
+    margin: 0;
+    padding: 0;
+    direction: rtl;
+    background-image: url('../public/shamsham.png'); /* Ensure the path is correct */
+
+    /*background-image: url("./../public/ww.webp");*/
+}
+
+/* תצוגת מצב נוכחי בשרת */
+.current-mode {
+    background-color: darkcyan;
+    color: white;
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    font-size: 22px;
+    font-weight: bold;
+    box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+.current-mode span {
+    font-weight: bold;
+    color: #ffeb3b;
+}
+
+
+
+
+
+.dashboard-container {
+    text-align: center;
+    padding: 20px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    /*max-width: 800px;*/
+    width: 85%;
+    margin: 20px auto;
+}
+
+h2 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.loading {
+    font-size: 18px;
+    color: #007BFF;
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+.sensor-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.sensor-table th, .sensor-table td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: center;
+}
+
+.sensor-table th {
+    background-color: #007BFF;
+    color: white;
+    font-size: 16px;
+}
+
+.sensor-table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.sensor-table tbody tr:hover {
+    background-color: #f1f1f1;
+    transition: background-color 0.3s ease;
+}
+
+
+
+
+/* עיצוב כללי */
+.app-container {
+    text-align: center;
+    font-family: Arial, sans-serif;
+    /*background-color: black;*/
+    min-height: 100vh;
+    /*align-items: center;*/
+    background-image: url('../public/shamsham.png'); /* Ensure the path is correct */
+    padding-bottom: 20px;
+}
+
+/* כותרת (Header) */
+.app-header {
+    background-color: darkcyan;
+    color: white;
+    padding: 15px;
+    border-radius: 0 0 15px 15px;
+    box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+.app-header h1 {
+    margin: 0;
+    font-size: 45px;
+}
+
+/* ניווט בין עמודים */
+nav {
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+nav button {
+    background: white;
+    color: #007BFF;
+    padding: 10px 15px;
+    font-size: 16px;
+    border: 2px solid #007BFF;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+nav button:hover {
+    background: #007BFF;
+    color: white;
+}
+
+/* טאבים פעילים */
+.active-tab {
+    background: #007BFF;
+    /*color: red;*/
+    font-weight: bold;
+}
+
+/* עיצוב הדף הראשי */
+main {
+    margin-top: 20px;
+}
+
+/* עיצוב אזור ההגדרות */
+.config-container {
+    max-width: 500px;
+    margin: auto;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+
+
+/* עיצוב עבור מצב הבחירה */
+.mode-selector {
+    text-align: center;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    margin: 20px auto;
+    transition: all 0.3s ease-in-out;
+}
+
+.mode-selector h2 {
+    font-size: 22px;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+/* עיצוב הרשימה הנפתחת */
+.mode-dropdown-container {
+    display: flex;
+    justify-content: center;
+}
+
+.mode-dropdown {
+    width: 100%;
+    max-width: 300px;
+    padding: 10px;
+    font-size: 16px;
+    border: 2px solid #007BFF;
+    border-radius: 8px;
+    background-color: white;
+    color: #333;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+/* אפקטים של מעבר */
+.mode-dropdown:hover {
+    border-color: #0056b3;
+}
+
+.mode-dropdown:focus {
+    outline: none;
+    border-color: #0046a3;
+    box-shadow: 0px 0px 5px rgba(0, 91, 187, 0.5);
+}
+
+/* עיצוב טופס ההגדרות */
+.config-form {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    margin: 20px auto;
+    text-align: center;
+}
+
+/* כותרת */
+.config-form h2 {
+    font-size: 22px;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+/* עיצוב תוויות (Labels) */
+.config-form label {
+    display: block;
+    font-weight: bold;
+    margin: 10px 0 5px;
+    color: #007BFF;
+}
+
+/* עיצוב שדות קלט */
+.input-field {
+    width: 80%;
+    padding: 10px;
+    font-size: 16px;
+    border: 2px solid #007BFF;
+    border-radius: 5px;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.input-field:focus {
+    outline: none;
+    border-color: #0056b3;
+    box-shadow: 0px 0px 5px rgba(0, 91, 187, 0.5);
+}
+
+/* עיצוב כפתור שליחה */
+.submit-button {
+    width: 100%;
+    padding: 12px;
+    font-size: 18px;
+    margin-top: 15px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.submit-button:hover {
+    background-color: #0056b3;
+}
+
+/* כאשר הכפתור מושבת */
+.submit-button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+
+
+/* עיצוב תפריט הניווט */
+nav {
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+nav button {
+    background: white;
+    color: #007BFF;
+    padding: 10px 15px;
+    font-size: 16px;
+    border: 2px solid #007BFF;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+nav button:hover {
+    background: indianred;
+    color: white;
+}
+
+/* דף ההגדרות - כיוונון תוכן */
+.config-page {
+    /*min-width: 500px;*/
+    /*max-width: 500px;*/
+    margin: auto;
+    background: transparent;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.config-details p {
+    margin: 5px 0;
+}
+
+/* Flex container for global config and mode-specific config details */
+.config-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+/*!* Global configuration styling *!*/
+.global-config {
+    flex: 1;
+    background-color: transparent;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    text-align: right;
+}
+
+/*!* Mode-specific configuration details styling *!*/
+.config-details {
+    flex: 1;
+    background-color: transparent;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    text-align: right;
+}

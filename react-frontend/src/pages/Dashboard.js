@@ -2,12 +2,6 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import WeatherWidget from "../components/WeatherWidget"; // adjust the path as needed
 
-const state_codes = {
-  "61": "tempMode",
-  "62": "SoilMoisture",
-  "63": "shabbatMode",
-  "64": "manual"
-};
 const state_hebrew = {
   "tempMode": "טמפרטורה",
   "SoilMoisture": "לחות",
@@ -36,34 +30,41 @@ function Dashboard() {
   const [sensorData, setSensorData] = useState([]);
   const [currentMode, setCurrentMode] = useState("טוען..."); // current mode text
   const [configData, setConfigData] = useState({});
+  const [stateCodes, setStateCodes] = useState({});
   const [loading, setLoading] = useState(true);
   const API_BASE_URL = "http://localhost:3001/api";
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        // Fetch sensor data
-        const responseSensors = await axios.get(`${API_BASE_URL}/telemetry`);
-        setSensorData(responseSensors.data);
-      } catch (error) {
-        console.error("Error fetching sensor data:", error);
+      const fetchStateCodes = async () => {
+        try {
+          const { data } = await axios.get(`${API_BASE_URL}/config/stateCodes`);
+          setStateCodes(data);
+        } catch (error) {
+          console.error("Error fetching state codes:", error);
+        }
+      };
+
+      const fetchData = async () => {
+        try {
+          const responseSensors = await axios.get(`${API_BASE_URL}/telemetry`);
+          setSensorData(responseSensors.data);
+          const responseConfig = await axios.get(`${API_BASE_URL}/config/all`);
+          setConfigData(responseConfig.data);
+        } catch (error) {
+          console.error("Error fetching data:", error);
+        } finally {
+          setLoading(false);
+        }
+      };
+
+      fetchStateCodes().then(fetchData);
+    }, []);
+
+    useEffect(() => {
+      if (configData.state && Object.keys(stateCodes).length > 0) {
+        setCurrentMode(stateCodes[configData.state] || "לא ידוע");
       }
-
-      try {
-        // Fetch config data from server
-        const responseConfig = await axios.get(`${API_BASE_URL}/config/all`);
-        setConfigData(responseConfig.data);
-        setCurrentMode(state_codes[responseConfig.data.state] || "לא ידוע");
-      } catch (error) {
-        console.error("Error fetching config data:", error);
-        setCurrentMode("שגיאה בטעינת מצב");
-      }
-
-      setLoading(false);
-    };
-
-    fetchData();
-  }, []);
+    }, [configData, stateCodes]);
 
   // Helper function to format an ISO date string to human-readable format
   const formatDate = (isoString) => {

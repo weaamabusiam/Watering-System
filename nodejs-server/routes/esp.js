@@ -45,18 +45,20 @@ router.get('/dataMode', (req, res) => {
   console.log(req.query);
   const { state } = req.query;
   let data = JSON.parse(fs.readFileSync(filePath, "utf8"));
-
-  if (state === "shabbatMode") {
+  let entry_name = data["modes"][state]
+  if (state === "63") {
     // Convert each shabbat mode entry to include Unix timestamps (in seconds)
-    let entries = data[state].map(entry => {
+    let entries = data[entry_name].map(entry => {
       return {
         startDateTime: Math.floor(new Date(entry.startDateTime).getTime() / 1000),
         endDateTime: Math.floor(new Date(entry.endDateTime).getTime() / 1000)
       };
     });
+    console.log(entries);
     res.json(entries);
   } else {
-    res.json(data[state]);
+    console.log(data[entry_name]);
+    res.json(data[entry_name]);
   }
 });
 

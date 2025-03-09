@@ -1,2 +1,3 @@
-/server/node_modules
-/server/.env
+/nodejs-server/node_modules
+/nodejs-server/.env
+/react-frontend/node_modules

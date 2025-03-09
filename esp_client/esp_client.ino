@@ -14,10 +14,11 @@
 // ----- General Data -----
 #define DHTTYPE DHT11
 DHT dht(dhtPin, DHTTYPE);
-DynamicJsonDocument doc(1024);  // JSON document with a 1KB capacity
+DynamicJsonDocument StateDocument(1024);  // JSON document with a 1KB capacity
 
 // global variables
 int CurrentState = 0;
+DynamicJsonDocument CurrentConfig(1024);
 // Sensor variables
 float CurrentTemp;
 int CurrentLight;
@@ -40,6 +41,7 @@ unsigned long pumpCheckTime = 0;
 unsigned long reportingTime=0;
 unsigned long DataPullTime=0;
 unsigned long statusCheckTime=0;
+long actionTime = 0;
 // the initial time form the server (timeStamp)
 unsigned long ServerTime = 0;
 
@@ -51,10 +53,14 @@ void setup() {
   WiFi_SETUP();  // WiFi and HTTP helpers from WiFiHelpers.h
   dht.begin();
   String initialJson = GetState();
-  deserializeJson(doc, initialJson.c_str());
-  CurrentState = doc["state"].as<int>();
-  ServerTime = doc["timeStamp"];
+  deserializeJson(StateDocument, initialJson.c_str());
+  CurrentState = StateDocument["state"].as<int>();
+  ServerTime = StateDocument["timeStamp"];
+  String initialConfig = getJsonData(CurrentState);
+  deserializeJson(CurrentConfig, initialConfig.c_str());
   isPumpActive = false;
+  DataPullTime = millis();
+  statusCheckTime = millis();
 }
 
 void loop() {
@@ -69,13 +75,16 @@ void loop() {
   // Update state machine every modeCheckInterval (if needed)
   if ((millis() - statusCheckTime) > modeCheckInterval) {
     String jsonData = GetState();
-    deserializeJson(doc, jsonData.c_str());
+    deserializeJson(StateDocument, jsonData.c_str());
     // on every state change turn off the pump first
-    if (CurrentState != doc["state"].as<int>()){
+    if (CurrentState != StateDocument["state"].as<int>()){
         turn_pump_on_off(false);
+        CurrentState = StateDocument["state"].as<int>();
+        String initialConfig = getJsonData(CurrentState);
+        deserializeJson(CurrentConfig, initialConfig.c_str());
+        DataPullTime = millis();
     }
-    CurrentState = doc["state"].as<int>();
-    statusCheckTime = millis();
+  statusCheckTime = millis();
   }
   
   // Report sensor data every sensorUpdateInterval

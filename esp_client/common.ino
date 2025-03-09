@@ -1,6 +1,6 @@
 // ===== Helper Functions =====
 void logMessage(const String &msg) {
-  Serial.print(" [");
+  Serial.print(" [ ");
   Serial.print(getCurrentTimeStamp());
   Serial.print(" ] ");
   Serial.println(msg);
@@ -11,6 +11,15 @@ long getCurrentTimeStamp() {
   return ServerTime + (millis()/1000) ;
 }
 
+void getCurrentConfig(){
+    String jsonData = getJsonData(CurrentState);
+    if (jsonData==""){
+      logMessage("failed to get config");
+      return;
+    }
+    deserializeJson(CurrentConfig, jsonData.c_str());
+    DataPullTime = millis();
+}
 // turns the pump on and off and modify isPumpActive value
 void turn_pump_on_off(bool should_run){
     if (should_run && !isPumpActive){

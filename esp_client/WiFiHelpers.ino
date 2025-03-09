@@ -38,9 +38,9 @@ String GetState() {
   return json;
 }
 
-String getJsonData(String state) {
+String getJsonData(int state) {
   HTTPClient http;
-  http.begin(client, String(my_endpoint) + "dataMode?state=" + state);
+  http.begin(client, String(my_endpoint) + "dataMode?state=" + String(state));
   String json = (http.GET() == HTTP_CODE_OK) ? http.getString() : "";
   Serial.println(json);
   http.end();

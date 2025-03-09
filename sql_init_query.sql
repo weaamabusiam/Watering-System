@@ -1,0 +1,19 @@
+CREATE TABLE threes (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    id_plants INT NOT NULL,
+    date DATE NOT NULL
+);
+
+CREATE TABLE plants (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(45) NOT NULL UNIQUE
+);
+
+CREATE TABLE dataSensors (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    id_plants INT NOT NULL,
+    name_sensor VARCHAR(45) NOT NULL,
+    avg DOUBLE NOT NULL,
+    date TIMESTAMP NOT NULL,
+    is_running INT NOT NULL
+);

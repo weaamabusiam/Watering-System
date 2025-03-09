@@ -23,9 +23,16 @@ watering-system/
 
 ## הפעלת הפרויקט
 
+### התקנת מסד נתונים (MySQL)
+- יש לוודא כי MySQL מותקן.
+- ליצור מסד נתונים עם טבלאות, לפי השאילותות הנמצאות בקובץ `sql_init_query.sql` .
+
 ### התקנת צד שרת (Node.js)
 
-יש לוודא כי Node.js מותקן.
+
+- יש לוודא כי Node.js מותקן.
+- לעדכן את הקובץ `.env` עם שם וססמה של מסד הנתונים שיצרת.
+
 
 ```sh
 cd nodejs-server
@@ -45,7 +52,15 @@ npm start
 
 - התקן את תוכנת Arduino IDE והגדר את לוח ה-ESP32.
 - פתח את הקובץ הראשי `esp_client.ino` באמצעות Arduino IDE.
-- עדכן את פרטי הרשת (SSID וסיסמה) בקובץ.
+- עדכן את פרטי הרשת (SSID וסיסמה וIP) בקובץ `WIFIHelpers.ino`.
+- עדכן את מספר העץ שתרצה לנטר גם .
+
+```sh
+  const int test_plant_id = 16;
+  const char* ssid = "<your_network_name>";
+  const char* password = "your_network_name";
+  String my_endpoint = "http://<your_pc_ip>:3001/esp/";
+ ```
 - העלה את הקוד ל-ESP32.
 
 ## תכונות עיקריות

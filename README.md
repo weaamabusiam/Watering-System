@@ -25,6 +25,8 @@ watering-system/
 
 ### התקנת מסד נתונים (MySQL)
 - יש לוודא כי MySQL מותקן.
+- לעשות import  לקובץ `my_database_dump.sql` בתוכנת ה MYSQL workbech.
+- אופציה אחרת היא ל:
 - ליצור מסד נתונים עם טבלאות, לפי השאילותות הנמצאות בקובץ `sql_init_query.sql` .
 
 ### התקנת צד שרת (Node.js)
